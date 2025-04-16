@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,24 +31,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <EditText
-                android:id="@+id/etNuevoUsuario"
-                android:hint="Nuevo usuario"
+            <!-- Usuario -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_input"
-                android:padding="12dp"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp"
+                app:boxStrokeColor="@color/colorPrimary">
 
-            <EditText
-                android:id="@+id/etNuevoPassword"
-                android:hint="Contraseña"
-                android:inputType="textPassword"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNuevoUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nuevo usuario"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!-- Contraseña -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_input"
-                android:padding="12dp"
-                android:layout_marginBottom="24dp"/>
+                android:layout_marginBottom="24dp"
+                app:boxStrokeColor="@color/colorPrimary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNuevoPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Contraseña"
+                    android:inputType="textPassword"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnRegistrar"
@@ -58,6 +69,8 @@
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="12dp"/>
+
+
 
             <Button
                 android:id="@+id/btnVolverLogin"
