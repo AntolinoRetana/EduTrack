@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#2196F3</color> <!-- Azul educativo -->
+    <color name="colorPrimaryDark">#1565C0</color> <!-- Azul oscuro para el menú -->
+    <color name="colorAccent">#4CAF50</color> <!-- Verde para botones o confirmaciones -->
+    <color name="colorSecondary">#64B5F6</color> <!-- Azul cielo claro -->
+    <color name="hintColor">#616161 </color> <!-- Gris oscuro para hint -->
+
+</resources>
