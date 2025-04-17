@@ -2,6 +2,7 @@ package com.example.edutrack.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -39,6 +40,21 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnIrRegistro = findViewById(R.id.btnIrRegistro);
+
+        // Configurar el filtro para que solo acepte letras
+        InputFilter letrasSoloFilter = (source, start, end, dest, dstart, dend) -> {
+            for (int i = start; i < end; i++) {
+                if (!Character.isLetter(source.charAt(i))) {
+                    // Mostrar un pequeño mensaje informativo
+                    Toast.makeText(LoginActivity.this, "Solo se permiten letras", Toast.LENGTH_SHORT).show();
+                    return "";
+                }
+            }
+            return null; // Acepta el carácter
+        };
+
+        // Aplicar el filtro al campo de usuario
+        etUsuario.setFilters(new InputFilter[]{letrasSoloFilter});
 
         // Botón de iniciar sesión
         btnLogin.setOnClickListener(v -> {
