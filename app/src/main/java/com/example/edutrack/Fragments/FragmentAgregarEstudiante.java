@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +77,22 @@ public class FragmentAgregarEstudiante extends Fragment {
         etCurso = vista.findViewById(R.id.etCurso);
         etNota = vista.findViewById(R.id.etNota);
         btnGuardar = vista.findViewById(R.id.btnGuardar);
+
+
+        // Configurar el filtro para que el campo nombre solo acepte letras
+        InputFilter letrasSoloFilter = (source, start, end, dest, dstart, dend) -> {
+            for (int i = start; i < end; i++) {
+                if (!Character.isLetter(source.charAt(i)) && source.charAt(i) != ' ') {
+                    // Permitimos espacios para nombres compuestos
+                    Toast.makeText(getContext(), "Solo se permiten letras en el nombre", Toast.LENGTH_SHORT).show();
+                    return "";
+                }
+            }
+            return null; // Acepta el carácter
+        };
+
+        // Aplicar el filtro al campo de nombre
+        etNombre.setFilters(new InputFilter[]{letrasSoloFilter});
 
         // Botón para guardar estudiante
         btnGuardar.setOnClickListener(v -> {
