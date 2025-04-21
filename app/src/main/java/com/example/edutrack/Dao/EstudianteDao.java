@@ -21,6 +21,10 @@ public interface EstudianteDao {
     @Query("SELECT * FROM estudiantes")
     List<Estudiante> obtenerTodos();
 
+    @Query("SELECT * FROM estudiantes WHERE idUsuario = :idUsuario")
+    List<Estudiante> obtenerPorUsuario(int idUsuario);
+
+
     // Buscar un estudiante por ID
     @Query("SELECT * FROM estudiantes WHERE id = :id")
     Estudiante obtenerPorId(int id);

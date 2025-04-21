@@ -12,7 +12,7 @@ import com.example.edutrack.Moduls.Estudiante;
 import com.example.edutrack.Moduls.Usuario;
 
 // Aquí registramos todas las entidades que usarán Room
-@Database(entities = {Usuario.class, Estudiante.class}, version = 2)
+@Database(entities = {Usuario.class, Estudiante.class}, version = 4)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;

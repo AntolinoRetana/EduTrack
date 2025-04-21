@@ -1,5 +1,6 @@
 package com.example.edutrack.Fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -119,7 +120,16 @@ public class FragmentAgregarEstudiante extends Fragment {
             String estado = (nota >= 6.0) ? "Aprobado" : "Reprobado";
 
             // Crear e insertar estudiante
-            Estudiante nuevo = new Estudiante(nombre, edad, curso, nota, estado);
+            SharedPreferences prefs = requireContext().getSharedPreferences("UserPrefs", getContext().MODE_PRIVATE);
+            int idUsuario = prefs.getInt("userId", -1);
+
+            // Validar que exista
+            if (idUsuario == -1) {
+                Toast.makeText(getContext(), "Error: Usuario no logueado", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Estudiante nuevo = new Estudiante(curso,edad,estado, nombre, idUsuario, nota);
             AppDatabase.getInstance(getContext()).estudianteDao().insertar(nuevo);
 
             Toast.makeText(getContext(), "Estudiante guardado", Toast.LENGTH_SHORT).show();

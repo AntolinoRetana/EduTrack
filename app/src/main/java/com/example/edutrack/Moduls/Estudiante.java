@@ -2,13 +2,23 @@ package com.example.edutrack.Moduls;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 
-@Entity(tableName = "estudiantes")
+@Entity(tableName = "estudiantes",
+        foreignKeys = @ForeignKey(entity = Usuario.class,
+                parentColumns = "id",
+                childColumns = "idUsuario",
+                onDelete = ForeignKey.CASCADE
+        )
+
+)
 public class Estudiante {
     @PrimaryKey(autoGenerate = true)
     public int id;
+    @ColumnInfo(name = "idUsuario", index = true)
+    private int idUsuario;
 
     @ColumnInfo(name = "nombre")
     private String nombre;
@@ -33,10 +43,28 @@ public class Estudiante {
         this.estado = estado;
     }
 
+    public Estudiante(String curso, int edad, String estado, String nombre, int idUsuario, double notaFinal) {
+        this.curso = curso;
+        this.edad = edad;
+        this.estado = estado;
+        this.nombre = nombre;
+        this.idUsuario = idUsuario;
+        this.notaFinal = notaFinal;
+    }
+
     // Constructor vacío
     public Estudiante() {
     }
     //Getters y setters
+
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
     public String getCurso() {
         return curso;
