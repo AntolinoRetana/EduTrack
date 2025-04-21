@@ -1,5 +1,6 @@
 package com.example.edutrack.Fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.edutrack.Adapter.EstudianteAdapter;
 import com.example.edutrack.DB.AppDatabase;
@@ -70,22 +72,26 @@ public class FragmentListaEstudiantes extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_lista_estudiantes, container, false);
 
-        // Referenciar RecyclerView
         recyclerEstudiantes = vista.findViewById(R.id.recyclerEstudiantes);
         recyclerEstudiantes.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Obtener datos
-        List<Estudiante> lista = AppDatabase
-                .getInstance(getContext())
-                .estudianteDao()
-                .obtenerTodos();
+        SharedPreferences prefs = requireContext().getSharedPreferences("UserPrefs", getContext().MODE_PRIVATE);
+        int userId = prefs.getInt("userId", -1);
 
-        // Enlazar con el adapter
-        adapter = new EstudianteAdapter(lista, getContext());
-        recyclerEstudiantes.setAdapter(adapter);
+        if (userId != -1) {
+            List<Estudiante> lista = AppDatabase
+                    .getInstance(getContext())
+                    .estudianteDao()
+                    .obtenerPorUsuario(userId);
 
-        return vista;    }
+            adapter = new EstudianteAdapter(lista, getContext());
+            recyclerEstudiantes.setAdapter(adapter);
+        } else {
+            Toast.makeText(getContext(), "Usuario no logueado", Toast.LENGTH_SHORT).show();
+        }
+
+        return vista;
+    }
 }

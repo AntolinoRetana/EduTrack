@@ -1,6 +1,7 @@
 package com.example.edutrack.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.widget.Button;
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnIrRegistro = findViewById(R.id.btnIrRegistro);
 
+
         // Configurar el filtro para que solo acepte letras
         InputFilter letrasSoloFilter = (source, start, end, dest, dstart, dend) -> {
             for (int i = start; i < end; i++) {
@@ -66,6 +68,8 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 Usuario usuario = AppDatabase.getInstance(this).usuarioDao().login(nombre, clave);
                 if (usuario != null) {
+                    // Guardar el ID del usuario en SharedPreferences
+                    saveUserId(usuario.getId());
                     // Ir al menú principal
                     startActivity(new Intent(this, MainDashboardActivity.class));
                     finish(); // No volver atrás
@@ -81,5 +85,13 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         //
+    }
+
+    // Método para guardar el ID del usuario en SharedPreferences
+    private void saveUserId(int userId) {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("userId", userId);
+        editor.apply();
     }
 }
